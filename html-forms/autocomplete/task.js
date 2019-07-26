@@ -27,7 +27,7 @@ class Autocomplete {
       const { target } = e;
       if ( !target.matches( '.autocomplete__item' )) {
         return;
-      }
+      };
 
       const { textContent: text } = target,
         { id: value, index } = target.dataset;
@@ -68,26 +68,21 @@ class Autocomplete {
   }
 
   getMatches( text ) {
-    /*
-      TODO: этот метод нужно дописать
-      text - фраза, которую вводят в поле поиска
-      Метод должен вернуть массив.
+    const result = [];
 
-      Он формируется на основе списка опций select-элемента (this.input)
-      Подходящие опции - те, чей текст содержит то, что есть в аргументе text
-      Необходимо вернуть массив объектов со свойствами:
-      {
-        text: 'Содержимое <option>',
-        value: 'Содержимое атрибута value'
-      }
-    */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
+    [...this.input.options].filter( opt => {
+        const txt = text.toLowerCase();
+        
+        if (opt.textContent.toLowerCase().includes(txt)) {
+          
+              result.push({
+                text: opt.textContent,
+                value: opt.value
+              });
+        };
+    });
+    return result;
   }
-}
+};
 
 new Autocomplete( document.querySelector( '.autocomplete' ));
